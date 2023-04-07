@@ -9,6 +9,7 @@ public class SpaceshipAttack : MonoBehaviour
     public AISensor sensor;
     public GameObject spaceship;
     public float speed = 1f;
+    public Canvas crosshair;
     private float rocket_launch_time = 1.5f;
     private float rocket_launch_timer = 1.5f;
     private GameObject target;
@@ -16,18 +17,44 @@ public class SpaceshipAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        crosshair.enabled = false;
+    }
+    private GameObject getClosestTarget()
+    {
+        float min_distance = float.MaxValue;
+        GameObject closest_target = null;
+
+        foreach(GameObject g in sensor.Objects)
+        {
+            float dist = Vector3.Distance(spaceship.transform.position, g.transform.position);
+            if (dist < min_distance)
+            {
+                min_distance = dist;
+                closest_target = g;
+            }
+        }
+
+        return closest_target;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(sensor.Objects.Count == 0)
+        {
+            crosshair.enabled = false;
+        }
+        else
+        {
+            crosshair.enabled = true;
+            crosshair.GetComponent<RectTransform>().anchoredPosition3D = Camera.main.WorldToScreenPoint(getClosestTarget().transform.position);
+        }
         if (Input.GetButtonDown("Fire1") && sensor.Objects.Count > 0)
         {
             rocket_launch_timer = 0;
-            GameObject rocket = Instantiate(rocket_prefab, spaceship.transform.position, rocket_prefab.transform.rotation);
+            GameObject rocket = Instantiate(rocket_prefab, spaceship.transform.position + transform.forward * 3, rocket_prefab.transform.rotation);
             rocket.transform.localScale /= 3;
-            target = sensor.Objects[0];
+            target = getClosestTarget();
             rocket.transform.LookAt(target.transform);
             StartCoroutine(LaunchRocket(rocket));
         }
@@ -43,7 +70,10 @@ public class SpaceshipAttack : MonoBehaviour
             rocket.transform.LookAt(target.transform);
             yield return null;
         }
-        Destroy(target.gameObject);
+        if (target.gameObject.GetComponent<AsteroidCollisionExplosion>())
+        {
+            target.gameObject.GetComponent<AsteroidCollisionExplosion>().explode();
+        }
         ParticleSystem exp = Instantiate(explosion_system_prefab, rocket.transform.position, explosion_system_prefab.transform.rotation); ;
         exp.Play();
         Destroy(rocket);

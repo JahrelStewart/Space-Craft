@@ -25,7 +25,7 @@ public class AISensor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mesh_color.a = 0.5f;
+        mesh_color.a = 0.1f;
         scan_interval = 1.0f / scan_freq;
     }
 
