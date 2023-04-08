@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class Boid : MonoBehaviour
 {
-    private Transform target; //target that follows player
-    private Vector3 position;    
-    private Vector3 forward;
+    FlockingSettings settings;  
+    private Transform target; //target that follows player    
+    [HideInInspector]
+    public Vector3 position;
+    [HideInInspector]
+    public Vector3 forward;
     Vector3 velocity;
 
-    // To update:
-    Vector3 acceleration;
+    Transform cachedTransform;
+
+    // To update:    
     [HideInInspector]
     public Vector3 avgFlockHeading;
     [HideInInspector]
@@ -24,20 +28,26 @@ public class Boid : MonoBehaviour
     private const int numViewDirections = 300;
     private Vector3[] directions;
 
+    void Awake()
+    {
+        cachedTransform = transform;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         GeneratePerceptionPoints();        
     }
 
-    public void Initialize(Transform target)
+    public void Initialize(FlockingSettings settings, Transform target)
     {
-        this.target = target;       
+        this.target = target;
+        this.settings = settings;
 
-        /*position = cachedTransform.position;
-        forward = cachedTransform.forward;*/
+        position = cachedTransform.position;
+        forward = cachedTransform.forward;
 
-        float startSpeed = (Flock.BoidSettings.minSpeed + Flock.BoidSettings.maxSpeed) / 2;
+        float startSpeed = (settings.minSpeed + settings.maxSpeed) / 2;
         velocity = transform.forward * startSpeed;
     }
 
@@ -48,7 +58,7 @@ public class Boid : MonoBehaviour
         if (target != null)
         {
             Vector3 offsetToTarget = (target.position - position);
-            acceleration = SteerTowards(offsetToTarget) * Flock.BoidSettings.targetWeight;
+            acceleration = SteerTowards(offsetToTarget) * settings.targetWeight;
         }
 
         if (numPerceivedFlockmates != 0)
@@ -57,9 +67,9 @@ public class Boid : MonoBehaviour
 
             Vector3 offsetToFlockmatesCentre = (centreOfFlockmates - position);
 
-            var alignmentForce = SteerTowards(avgFlockHeading) * Flock.BoidSettings.alignWeight;
-            var cohesionForce = SteerTowards(offsetToFlockmatesCentre) * Flock.BoidSettings.cohesionWeight;
-            var seperationForce = SteerTowards(avgAvoidanceHeading) * Flock.BoidSettings.seperateWeight;
+            var alignmentForce = SteerTowards(avgFlockHeading) * settings.alignWeight;
+            var cohesionForce = SteerTowards(offsetToFlockmatesCentre) * settings.cohesionWeight;
+            var seperationForce = SteerTowards(avgAvoidanceHeading) * settings.seperateWeight;
 
             acceleration += alignmentForce;
             acceleration += cohesionForce;
@@ -69,29 +79,27 @@ public class Boid : MonoBehaviour
         if (IsGoingToCollide())
         {
             Vector3 collisionAvoidDir = GetWhiskers();
-            Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * Flock.BoidSettings.avoidCollisionWeight;
+            Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * settings.avoidCollisionWeight;
             acceleration += collisionAvoidForce;
         }
 
         velocity += acceleration * Time.deltaTime;
         float speed = velocity.magnitude;
         Vector3 dir = velocity / speed;
-        speed = Mathf.Clamp(speed, Flock.BoidSettings.minSpeed, Flock.BoidSettings.maxSpeed);
+        speed = Mathf.Clamp(speed, settings.minSpeed, settings.maxSpeed);
         velocity = dir * speed;
 
-        transform.position += velocity * Time.deltaTime;
-
-        /*cachedTransform.position += velocity * Time.deltaTime;
+        cachedTransform.position += velocity * Time.deltaTime;
         cachedTransform.forward = dir;
         position = cachedTransform.position;
-        forward = dir;*/
+        forward = dir;
 
     }
 
     bool IsGoingToCollide()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(position, Flock.BoidSettings.boundsRadius, forward, out hit, Flock.BoidSettings.collisionAvoidDst, Flock.BoidSettings.obstacleMask))
+        if (Physics.SphereCast(position, settings.boundsRadius, forward, out hit, settings.collisionAvoidDst, settings.obstacleMask))
         {
             return true;
         }
@@ -105,10 +113,9 @@ public class Boid : MonoBehaviour
 
         for (int i = 0; i < rayDirections.Length; i++)
         {
-            //Vector3 dir = cachedTransform.TransformDirection(rayDirections[i]);
-            Vector3 dir = transform.TransformDirection(rayDirections[i]);
+            Vector3 dir = cachedTransform.TransformDirection(rayDirections[i]);           
             Ray ray = new Ray(position, dir);
-            if (!Physics.SphereCast(ray, Flock.BoidSettings.boundsRadius, Flock.BoidSettings.collisionAvoidDst, Flock.BoidSettings.obstacleMask))
+            if (!Physics.SphereCast(ray, settings.boundsRadius, settings.collisionAvoidDst, settings.obstacleMask))
             {
                 return dir;
             }
@@ -139,7 +146,20 @@ public class Boid : MonoBehaviour
 
     Vector3 SteerTowards(Vector3 vector)
     {
-        Vector3 v = vector.normalized * Flock.BoidSettings.maxSpeed - velocity;
-        return Vector3.ClampMagnitude(v, Flock.BoidSettings.maxSteerForce);
+        Vector3 v = vector.normalized * settings.maxSpeed - velocity;
+        return Vector3.ClampMagnitude(v, settings.maxSteerForce);
+    }
+
+    private void OnDrawGizmos()
+    {
+        /*if(directions.Length > 0)
+        {
+            for (int i = 0; i < directions.Length; i++)
+            {                           
+                Vector3 dir = cachedTransform.TransformDirection(directions[i]);                
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawRay(position, dir * Flock.BoidSettings.collisionAvoidDst);
+            }            
+        }*/   
     }
 }
