@@ -62,7 +62,7 @@ public class AISensor : MonoBehaviour
         Vector3 dir = dest - origin;
 
         //Debug.Log(dir);
-        if (dir.y < -0.25 || dir.y > height)
+        if (dir.y < -height || dir.y > height)
         {
             return false;
         }
@@ -94,7 +94,7 @@ public class AISensor : MonoBehaviour
         Vector3[] vertices = new Vector3[num_of_vertices];
         int[] triangles = new int[num_of_vertices];
 
-        Vector3 bottom_center = Vector3.zero;
+        Vector3 bottom_center = Vector3.zero - Vector3.up * height / 2;
         Vector3 bottom_left = Quaternion.Euler(0, -angle, 0) * Vector3.forward * distance;
         Vector3 bottom_right = Quaternion.Euler(0, angle, 0) * Vector3.forward * distance;
 

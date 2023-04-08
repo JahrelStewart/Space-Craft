@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpaceshipAttack : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class SpaceshipAttack : MonoBehaviour
     private float laserbeam_speed = 45f;
     public Canvas missile_crosshair;
     public Canvas laser_gun_crosshair;
+    public Image missile_image;
+    public Image lasergun_image;
     private RectTransform missile_crosshair_panel;
     private Vector2 initial_crosshair_size;
     private GameObject target_in_focus;
@@ -59,10 +62,14 @@ public class SpaceshipAttack : MonoBehaviour
         {
             missile_launcher_equipped = true;
             laser_gun_equipped = false;
+            missile_image.color = Color.green;
+            lasergun_image.color = Color.white;
         } else if (Input.GetKeyDown(KeyCode.E))
         {
             missile_launcher_equipped = false;
             laser_gun_equipped = true;
+            missile_image.color = Color.white;
+            lasergun_image.color = Color.green;
         }
 
         if (missile_launcher_equipped)
