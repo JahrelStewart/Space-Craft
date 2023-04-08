@@ -231,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 46405249}
   - component: {fileID: 46405250}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 93623085}
   - component: {fileID: 93623086}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   m_Component:
   - component: {fileID: 155632358}
   - component: {fileID: 155632360}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: CrosshairPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 197336838}
   - component: {fileID: 197336840}
   - component: {fileID: 197336839}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -619,7 +619,7 @@ GameObject:
   - component: {fileID: 205709349}
   - component: {fileID: 205709351}
   - component: {fileID: 205709350}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Lasergun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -696,7 +696,7 @@ GameObject:
   - component: {fileID: 246848539}
   - component: {fileID: 246848538}
   - component: {fileID: 246848537}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: HPCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -927,7 +927,7 @@ GameObject:
   - component: {fileID: 300715923}
   - component: {fileID: 300715925}
   - component: {fileID: 300715924}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Slot (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1004,7 +1004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 319008995}
   - component: {fileID: 319008996}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 343138390}
   - component: {fileID: 343138392}
   - component: {fileID: 343138391}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1211,7 +1211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 377689452}
   - component: {fileID: 377689453}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1342,7 +1342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 420105283}
   - component: {fileID: 420105284}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: CrosshairPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1392,7 +1392,7 @@ GameObject:
   - component: {fileID: 436795470}
   - component: {fileID: 436795472}
   - component: {fileID: 436795471}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1690,11 +1690,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1099048681204852, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1334483832576494, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1578151531806032, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_Name
@@ -1702,11 +1702,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1578151531806032, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1794273669107246, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4185073248538102, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_RootOrder
@@ -1759,6 +1759,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4185073248538102, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
   m_PrefabInstance: {fileID: 473681304}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &473681306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1578151531806032, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
+  m_PrefabInstance: {fileID: 473681304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &473681307
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473681306}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.013557, y: 2.1706686, z: 5.998395}
+  m_Center: {x: 0.017992973, y: 0.12245226, z: 0.2483964}
 --- !u!1 &538773502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,7 +1913,7 @@ GameObject:
   - component: {fileID: 560169147}
   - component: {fileID: 560169149}
   - component: {fileID: 560169148}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2095,7 +2113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 577464590}
   - component: {fileID: 577464591}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2234,7 +2252,7 @@ GameObject:
   - component: {fileID: 753924011}
   - component: {fileID: 753924014}
   - component: {fileID: 753924015}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -2344,7 +2362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 848615668}
   - component: {fileID: 848615669}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2644,7 +2662,7 @@ GameObject:
   - component: {fileID: 940681824}
   - component: {fileID: 940681823}
   - component: {fileID: 940681826}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2753,6 +2771,65 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   Objects: []
+--- !u!1 &954718970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 954718972}
+  - component: {fileID: 954718971}
+  m_Layer: 0
+  m_Name: FlockingSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &954718971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954718970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f5fe57a773fe2499c602c192e61014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: d3786f84636cd4b479b24e4ec3c87f44, type: 2}
+  compute: {fileID: 7200000, guid: 1a95238cb26671c4191cb2f46ada14d1, type: 3}
+  target: {fileID: 473681305}
+  boidPrefab: {fileID: 1981505689876005540, guid: 73b09e5094ff94fddac6945d623c08af, type: 3}
+  boids:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!4 &954718972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954718970}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 94.59531, y: 6.7313004, z: 213.31216}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &956898448
 GameObject:
   m_ObjectHideFlags: 0
@@ -2831,7 +2908,7 @@ GameObject:
   - component: {fileID: 980283614}
   - component: {fileID: 980283616}
   - component: {fileID: 980283615}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3127,7 +3204,7 @@ GameObject:
   - component: {fileID: 1172432750}
   - component: {fileID: 1172432749}
   - component: {fileID: 1172432748}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3406,7 +3483,7 @@ GameObject:
   - component: {fileID: 1278520490}
   - component: {fileID: 1278520489}
   - component: {fileID: 1278520488}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: LasergunCrosshairCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3505,7 +3582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1295950984}
   - component: {fileID: 1295950985}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailRightWing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3637,7 +3714,7 @@ GameObject:
   - component: {fileID: 1306618207}
   - component: {fileID: 1306618209}
   - component: {fileID: 1306618208}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3837,7 +3914,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1442843772}
   - component: {fileID: 1442843773}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3969,7 +4046,7 @@ GameObject:
   - component: {fileID: 1472850325}
   - component: {fileID: 1472850327}
   - component: {fileID: 1472850326}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4047,7 +4124,7 @@ GameObject:
   - component: {fileID: 1481047267}
   - component: {fileID: 1481047269}
   - component: {fileID: 1481047268}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4373,7 +4450,7 @@ GameObject:
   - component: {fileID: 1537173526}
   - component: {fileID: 1537173528}
   - component: {fileID: 1537173527}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4451,7 +4528,7 @@ GameObject:
   - component: {fileID: 1615740409}
   - component: {fileID: 1615740411}
   - component: {fileID: 1615740410}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Image (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4527,7 +4604,7 @@ GameObject:
   - component: {fileID: 1617337124}
   - component: {fileID: 1617337126}
   - component: {fileID: 1617337125}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Image (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4603,7 +4680,7 @@ GameObject:
   - component: {fileID: 1665275202}
   - component: {fileID: 1665275204}
   - component: {fileID: 1665275203}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4800,7 +4877,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1679909849}
   - component: {fileID: 1679909850}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4931,7 +5008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1698216186}
   - component: {fileID: 1698216187}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailLeftWing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5064,7 +5141,7 @@ GameObject:
   - component: {fileID: 1758904320}
   - component: {fileID: 1758904319}
   - component: {fileID: 1758904318}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: HudCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5170,7 +5247,7 @@ GameObject:
   - component: {fileID: 1773120644}
   - component: {fileID: 1773120643}
   - component: {fileID: 1773120642}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: MissileCrosshairCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5398,7 +5475,7 @@ GameObject:
   - component: {fileID: 1796867184}
   - component: {fileID: 1796867185}
   - component: {fileID: 1796867186}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Spaceship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5513,7 +5590,7 @@ GameObject:
   - component: {fileID: 1799926257}
   - component: {fileID: 1799926259}
   - component: {fileID: 1799926258}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5588,7 +5665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1838454602}
   - component: {fileID: 1838454603}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5719,7 +5796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1853779100}
   - component: {fileID: 1853779101}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5851,7 +5928,7 @@ GameObject:
   - component: {fileID: 1879726256}
   - component: {fileID: 1879726258}
   - component: {fileID: 1879726257}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: WhichKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5985,7 +6062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1881831020}
   - component: {fileID: 1881831021}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailTopWing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6117,7 +6194,7 @@ GameObject:
   - component: {fileID: 1887292099}
   - component: {fileID: 1887292101}
   - component: {fileID: 1887292100}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6323,7 +6400,7 @@ GameObject:
   - component: {fileID: 1941786690}
   - component: {fileID: 1941786692}
   - component: {fileID: 1941786691}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: WhichKey (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6655,7 +6732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1999431781}
   - component: {fileID: 1999431782}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6786,7 +6863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2040976068}
   - component: {fileID: 2040976069}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6918,7 +6995,7 @@ GameObject:
   - component: {fileID: 2048412448}
   - component: {fileID: 2048412450}
   - component: {fileID: 2048412449}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6994,7 +7071,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2064035583}
   - component: {fileID: 2064035584}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TrailEngine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7299,7 +7376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5990800072066544873, guid: 2a1f21bf09f4fbb4698368c492e634fe, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5990800072066544877, guid: 2a1f21bf09f4fbb4698368c492e634fe, type: 3}
       propertyPath: m_RootOrder
