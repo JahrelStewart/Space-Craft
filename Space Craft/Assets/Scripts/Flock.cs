@@ -67,7 +67,7 @@ public class Flock : MonoBehaviour
         for (int i = 0; i < boids.Count; i++)
         {
             Vector3 pos = transform.position + Random.insideUnitSphere * spawnRadius;
-            Boid boid = Instantiate(boidPrefab, pos, Quaternion.identity);
+            Boid boid = Instantiate(boidPrefab, pos, Quaternion.identity).gameObject.GetComponent<Boid>();
             boid.transform.forward = Random.insideUnitSphere;
             boid.Initialize(settings, target);
             boids[i] = boid;
