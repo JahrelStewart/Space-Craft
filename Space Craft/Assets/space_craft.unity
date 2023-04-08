@@ -1688,9 +1688,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1796867181}
     m_Modifications:
+    - target: {fileID: 1099048681204852, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1334483832576494, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1578151531806032, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_Name
       value: PrototypeZero
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578151531806032, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794273669107246, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4185073248538102, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_RootOrder
@@ -2628,7 +2644,7 @@ GameObject:
   - component: {fileID: 940681824}
   - component: {fileID: 940681823}
   - component: {fileID: 940681826}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
