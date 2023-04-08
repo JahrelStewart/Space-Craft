@@ -28,7 +28,7 @@ public class AsteroidCollisionExplosion : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("here");
-        if (other.gameObject.name.Contains("Rocket"))
+        if (other.gameObject.name.Contains("Rocket") || other.gameObject.name.Contains("LaserBeam"))
             explode();
     }
 
