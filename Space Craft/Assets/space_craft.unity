@@ -1688,7 +1688,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1796867181}
     m_Modifications:
-<<<<<<< HEAD
     - target: {fileID: 1099048681204852, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -1697,13 +1696,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-=======
->>>>>>> parent of 7632c39 (Merge branch 'main' of https://github.com/JahrelStewart/Space-Craft)
     - target: {fileID: 1578151531806032, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_Name
       value: PrototypeZero
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 1578151531806032, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -1712,8 +1708,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-=======
->>>>>>> parent of 7632c39 (Merge branch 'main' of https://github.com/JahrelStewart/Space-Craft)
     - target: {fileID: 4185073248538102, guid: 7049a336c6ee74a32984d27e6d9faeca, type: 3}
       propertyPath: m_RootOrder
       value: 1
