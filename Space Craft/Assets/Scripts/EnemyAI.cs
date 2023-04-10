@@ -21,6 +21,7 @@ public class EnemyAI : MonoBehaviour
     private int offset = 80; // origin of radius which is 50 away from target position
     private int radius = 50; // Enemy will move anywhere within the given radius of the offset position
     private float explosion_radius = 5f;
+    private GameObject rocket;
 
     // To update:    
     [HideInInspector]
@@ -155,8 +156,10 @@ public class EnemyAI : MonoBehaviour
     public void Attack()
     {
         //Debug.Log("Attacking");
-        //Debug.DrawRay(transform.position + 0.5f * transform.forward, target.transform.position - transform.position);        
-        GameObject rocket = Instantiate(rocket_prefab, transform.position, rocket_prefab.transform.rotation);
+        //Debug.DrawRay(transform.position + 0.5f * transform.forward, target.transform.position - transform.position);
+        if (rocket != null)
+            Destroy(rocket.gameObject);
+        rocket = Instantiate(rocket_prefab, transform.position, rocket_prefab.transform.rotation);
         rocket.transform.localScale /= 3;
         rocket.transform.LookAt(target.transform.position);
 
@@ -177,7 +180,7 @@ public class EnemyAI : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(rocket.transform.position, explosion_radius);
         foreach(Collider col in colliders)
         {
-            if(col.transform.parent != null)
+            if(col.transform.parent != null && col.transform.parent.GetComponent<HealthPoints>() != null)
                 col.transform.parent.GetComponent<HealthPoints>().takeDamage(rocket_damage);
             else if(col.transform.GetComponent<HealthPoints>() != null)
                 col.transform.GetComponent<HealthPoints>().takeDamage(rocket_damage);

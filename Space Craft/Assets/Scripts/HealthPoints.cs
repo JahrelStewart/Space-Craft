@@ -30,7 +30,8 @@ public class HealthPoints : MonoBehaviour
 
         if(transform.name.Contains("Spaceship") && hp <= 0f)
         {
-            GameManager.resetGame();
+            //GameManager.resetGame();
+            PlayerPrefs.SetInt("points", GameManager.getPoints());
             Destroy(gameObject.transform.Find("PrototypeZero").gameObject);
             Destroy(gameObject.transform.Find("Cylinder").gameObject);
             Destroy(gameObject.transform.Find("Sphere").gameObject);

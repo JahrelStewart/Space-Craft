@@ -10,17 +10,6 @@ public class EndGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if(PlayerPrefs.GetInt("tokensObtainedByPlayer") == PlayerPrefs.GetInt("tokensObtainedBySeeker"))
-        {
-            winner.text = "ITS A TIE :/".ToString();
-        }
-        else if(PlayerPrefs.GetInt("tokensObtainedByPlayer") > PlayerPrefs.GetInt("tokensObtainedBySeeker"))
-        {
-            winner.text = "YOU!!!".ToString();
-        }
-        else if (PlayerPrefs.GetInt("tokensObtainedByPlayer") < PlayerPrefs.GetInt("tokensObtainedBySeeker"))
-        {
-            winner.text = "THE SEEKER :(".ToString();
-        }*/
+        scores.text = PlayerPrefs.GetInt("points").ToString();
     }
 }

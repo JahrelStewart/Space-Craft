@@ -52,12 +52,15 @@ public class Flock : MonoBehaviour
 
             for (int i = 0; i < boids.Count; i++)
             {
-                boids[i].avgFlockHeading = boidData[i].flockHeading;
-                boids[i].centreOfFlockmates = boidData[i].flockCentre;
-                boids[i].avgAvoidanceHeading = boidData[i].avoidanceHeading;
-                boids[i].numPerceivedFlockmates = boidData[i].numFlockmates;
+                if(boids[i] != null)
+                {
+                    boids[i].avgFlockHeading = boidData[i].flockHeading;
+                    boids[i].centreOfFlockmates = boidData[i].flockCentre;
+                    boids[i].avgAvoidanceHeading = boidData[i].avoidanceHeading;
+                    boids[i].numPerceivedFlockmates = boidData[i].numFlockmates;
 
-                boids[i].CalculateMovement();
+                    boids[i].CalculateMovement();
+                }
             }
 
             boidBuffer.Release();

@@ -62,7 +62,7 @@ public class SpaceshipAttack : MonoBehaviour
 
         foreach (GameObject g in sensor.Objects)
         {
-            if(g != null)
+            if(spaceship != null && g != null)
             {
                 float dist = Vector3.Distance(spaceship.transform.position, g.transform.position);
                 if (dist < min_distance)
@@ -116,7 +116,7 @@ public class SpaceshipAttack : MonoBehaviour
                         StartCoroutine(FocusOnTarget());
                     }
                 }
-                if (Input.GetButtonDown("Fire1") && sensor.Objects.Count > 0)
+                if (Input.GetButtonDown("Fire1") && sensor.Objects.Count > 0 && spaceship != null)
                 {
                     rocket_launch_timer = 0;
                     GameObject rocket = Instantiate(rocket_prefab, spaceship.transform.position + transform.forward * 3, rocket_prefab.transform.rotation);
@@ -131,7 +131,7 @@ public class SpaceshipAttack : MonoBehaviour
                 laser_gun_crosshair.enabled = true;
                 missile_crosshair.enabled = false;
 
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButtonDown("Fire1") && spaceship != null)
                 {
                     lasergun_launch_timer = 0;
                     GameObject laserbeam_left = Instantiate(laserbeam_prefab, spaceship.transform.position + transform.forward * 3 - transform.right * 2.2f, laserbeam_prefab.transform.rotation);
@@ -190,7 +190,7 @@ public class SpaceshipAttack : MonoBehaviour
             if(col.transform.GetComponent<HealthPoints>() != null)
             {
                 col.transform.GetComponent<HealthPoints>().takeDamage(rocket_damage);
-                Debug.Log(col.name + " HP IS NOW " + col.transform.GetComponent<HealthPoints>().hp);
+                //Debug.Log(col.name + " HP IS NOW " + col.transform.GetComponent<HealthPoints>().hp);
             }
         }
 

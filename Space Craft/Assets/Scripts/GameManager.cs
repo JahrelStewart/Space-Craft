@@ -39,10 +39,10 @@ public class GameManager : MonoBehaviour
         {
             spawn_counter++;
             GameObject.Find("EnemiesSystem").GetComponent<EnemiesAI>().SpawnAnEnemy();
-            foreach(EnemyAI enemy in GameObject.Find("EnemiesSystem").GetComponent<EnemiesAI>().enemies){
+/*            foreach(EnemyAI enemy in GameObject.Find("EnemiesSystem").GetComponent<EnemiesAI>().enemies){
                 enemy.GetComponent<HealthPoints>().max_hp = 100 * (num_of_spawned_allies + 1);
                 enemy.GetComponent<HealthPoints>().hp = 100 * (num_of_spawned_allies + 1);
-            }
+            }*/
         }
         num_of_spawned_enemies = spawn_counter;
 
@@ -54,6 +54,15 @@ public class GameManager : MonoBehaviour
         if (num_of_spawned_enemies != (num_of_spawned_allies + 1) * 2)
         {
             SpawnEnemies();
+        }
+
+        if(points >= 100)
+        {
+            points_text.fontSize = 35;
+            Vector3 pos = points_text.transform.localPosition;
+            pos.x = -3;
+            pos.y = -10;
+            points_text.transform.localPosition = pos;
         }
 
         points_text.text = points.ToString();
@@ -85,5 +94,10 @@ public class GameManager : MonoBehaviour
     {
         points += enemy_gain;
         num_of_spawned_enemies--;
+    }
+
+    public static int getPoints()
+    {
+        return points;
     }
 }

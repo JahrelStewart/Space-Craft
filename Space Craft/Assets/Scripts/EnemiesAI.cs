@@ -94,6 +94,8 @@ public class EnemiesAI : MonoBehaviour
         EnemyAI enemy = Instantiate(enemyPrefab, pos, Quaternion.identity).gameObject.GetComponent<EnemyAI>();
         enemy.transform.forward = Random.insideUnitSphere;
         enemy.Initialize(settings, player);
+        enemy.GetComponent<HealthPoints>().max_hp = 100 * (GameManager.getNumOfAllies() + 1);
+        enemy.GetComponent<HealthPoints>().hp = 100 * (GameManager.getNumOfAllies() + 1);
         enemies.Add(enemy);
     }
     public struct EnemyData

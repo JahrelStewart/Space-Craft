@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpaceshipMovement : MonoBehaviour
 {
 
-    private float torque = 5f; //1.15f
+    private float torque = 10f; //1.15f
     private float thrust = 30f;
     private Rigidbody rb;
     private float collision_damage = 10;
