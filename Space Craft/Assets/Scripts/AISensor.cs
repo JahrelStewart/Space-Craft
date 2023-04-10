@@ -62,12 +62,58 @@ public class AISensor : MonoBehaviour
         Vector3 dir = dest - origin;
 
         //Debug.Log(dir);
-        if (dir.y < -height || dir.y > height)
+        Vector3 up_normalized = new Vector3(Mathf.Abs(Mathf.Round(transform.up.normalized.x)), Mathf.Abs(Mathf.Round(transform.up.normalized.y)), Mathf.Abs(Mathf.Round(transform.up.normalized.z)));
+        if(up_normalized.magnitude > 1)
         {
-            return false;
+            if(up_normalized.x == 1)
+            {
+                up_normalized = Vector3.right;
+            } else if(up_normalized.y == 1)
+            {
+                up_normalized = Vector3.up;
+            }
+            else if (up_normalized.z == 1)
+            {
+                up_normalized = Vector3.forward;
+            }
         }
 
-        dir.y = 0;
+        //Debug.Log(up_normalized);
+
+        if (up_normalized == Vector3.up)
+        {
+            if (dir.y < -height || dir.y > height)
+            {
+                return false;
+            }
+            else
+            {
+                dir.y = 0;
+            }
+        } else if (up_normalized == Vector3.forward)
+        {
+            if (dir.z < -height || dir.z > height)
+            {
+                return false;
+            }
+            else
+            {
+                dir.z = 0;
+            }
+        }
+        else if (up_normalized == Vector3.right)
+        {
+            if (dir.x < -height || dir.x > height)
+            {
+                return false;
+            }
+            else
+            {
+                dir.x = 0;
+            }
+        }
+
+
         float delta_angle = Vector3.Angle(dir, transform.forward);
         if (delta_angle > angle)
         {

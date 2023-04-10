@@ -149,10 +149,6 @@ public class SpaceshipAttack : MonoBehaviour
             rocket.transform.LookAt(target.transform);
             yield return null;
         }
-        if (target.gameObject.GetComponent<AsteroidCollisionExplosion>())
-        {
-            target.gameObject.GetComponent<AsteroidCollisionExplosion>().explode();
-        }
         ParticleSystem exp = Instantiate(explosion_system_prefab, rocket.transform.position, explosion_system_prefab.transform.rotation); ;
         exp.Play();
         Destroy(rocket);
@@ -163,6 +159,8 @@ public class SpaceshipAttack : MonoBehaviour
         float elapsed = 0;
         while (elapsed < laserbeam_lifetime)
         {
+            if (laserbeam == null)
+                break;
             elapsed += Time.deltaTime;
             laserbeam.transform.position += laserbeam.transform.forward * laserbeam_speed * Time.deltaTime;
             //laserbeam.transform.LookAt(target.transform);

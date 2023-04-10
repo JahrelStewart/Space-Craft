@@ -23,4 +23,14 @@ public class AsteroidFlotation : MonoBehaviour
         transform.position += flotation_dir * flotation_speed * Time.deltaTime;
         transform.Rotate(rotation_axis, delta_rotation_angle * Time.deltaTime);
     }
+
+    public Vector3 getFlotationDir()
+    {
+        return flotation_dir;
+    }
+
+    public float getFlotationSpeed()
+    {
+        return flotation_speed;
+    }
 }
