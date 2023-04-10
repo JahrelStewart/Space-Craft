@@ -15,6 +15,8 @@ public class EnemyAI : MonoBehaviour
     private float timer = 6f;
     private float time = 0;    
     private float rocket_speed = 5f;
+    private float rocket_damage = 20;
+    private float laser_damage = 30;
     private Vector3 randomSpot;
     private int offset = 80; // origin of radius which is 50 away from target position
     private int radius = 50; // Enemy will move anywhere within the given radius of the offset position
@@ -212,6 +214,20 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 v = vector.normalized * settings.maxSpeed - velocity;
         return Vector3.ClampMagnitude(v, settings.maxSteerForce);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name.Contains("Rocket"))
+        {
+            Debug.Log("Rocket damage From Player");
+            GetComponent<HealthPoints>().takeDamage(rocket_damage);
+        }
+        else if (collision.gameObject.name.Contains("Laser"))
+        {
+            Debug.Log("Laser damage From Player");
+            GetComponent<HealthPoints>().takeDamage(laser_damage);
+        }
     }
 
     private void OnDrawGizmos()

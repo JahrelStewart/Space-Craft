@@ -46,7 +46,7 @@ public class SpaceshipMovement : MonoBehaviour
             Debug.Log("Asteroid damage");
             GetComponent<HealthPoints>().takeDamage(collision_damage);
         }
-        else if (collision.gameObject.name.Contains("Asteroid"))
+        else if (collision.gameObject.name.Contains("Laser"))
         {
             Debug.Log("Laser damage");
             GetComponent<HealthPoints>().takeDamage(laser_damage);

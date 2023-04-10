@@ -37,7 +37,7 @@ public class EnemiesAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemies != null)
+        if (enemies != null && player != null)
         {
             if (enemies.Count == 0)
                 return;
