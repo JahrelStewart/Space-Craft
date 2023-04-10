@@ -12,6 +12,9 @@ public class AsteroidCollisionExplosion : MonoBehaviour
     private float explosion_radius = 35;
     private float explosion_force = 500;
     private float explosion_upward = 0.1f;
+    private float spaceship_damage = 5;
+    private float rocket_damage = 20;
+    private float laserbeam_damage = 15;
 
     // Start is called before the first frame update
     void Start()
@@ -22,15 +25,43 @@ public class AsteroidCollisionExplosion : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.name.Contains("Spaceship"))
-            explode();
+        if (collision.gameObject.name.Contains("Spaceship"))
+        {
+            GetComponent<HealthPoints>().takeDamage(spaceship_damage);
+            if(GetComponent<HealthPoints>().hp <= 0)
+            {
+                GameManager.asteroidDestroyed();
+                transform.parent.Find("HPCanvas").GetComponent<Canvas>().enabled = false;
+                explode();
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("here");
-        if (other.gameObject.name.Contains("Rocket") || other.gameObject.name.Contains("LaserBeam"))
-            explode();
+        if (other.gameObject.name.Contains("Rocket"))
+        {
+            Debug.Log(GetComponent<HealthPoints>().hp);
+            GetComponent<HealthPoints>().takeDamage(rocket_damage);
+            if (GetComponent<HealthPoints>().hp <= 0)
+            {
+                GameManager.asteroidDestroyed();
+                transform.parent.Find("HPCanvas").GetComponent<Canvas>().enabled = false;
+                explode();
+            }
+        }
+        else if (other.gameObject.name.Contains("LaserBeam"))
+        {
+            Destroy(other.gameObject);
+            GetComponent<HealthPoints>().takeDamage(laserbeam_damage);
+            Debug.Log(GetComponent<HealthPoints>().hp);
+            if (GetComponent<HealthPoints>().hp <= 0)
+            {
+                GameManager.asteroidDestroyed();
+                transform.parent.Find("HPCanvas").GetComponent<Canvas>().enabled = false;
+                explode();
+            }
+        }
     }
 
     public void explode()
@@ -77,6 +108,9 @@ public class AsteroidCollisionExplosion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(GetComponent<HealthPoints>().hp != GetComponent<HealthPoints>().max_hp)
+        {
+            transform.parent.Find("HPCanvas").GetComponent<Canvas>().enabled = true;
+        }
     }
 }

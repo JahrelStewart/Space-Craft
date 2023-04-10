@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3889923907454785717}
   - component: {fileID: 8658822157755797607}
+  - component: {fileID: -268193923641083370}
   m_Layer: 7
   m_Name: FreezeRocket
   m_TagString: Untagged
@@ -41,12 +42,28 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3889923907454785674}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.120115
   m_Height: 11.009359
   m_Direction: 2
   m_Center: {x: 0.5, y: 1, z: -2}
+--- !u!54 &-268193923641083370
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3889923907454785674}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &3889923907219392332
 PrefabInstance:
   m_ObjectHideFlags: 0

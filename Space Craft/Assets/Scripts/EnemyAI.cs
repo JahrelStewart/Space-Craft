@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+/*        time += Time.deltaTime;
         if(destination == Vector3.zero || time > timer || sensor.Objects.Count > 0)
         {
             time = 0;
@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
         }
         //Debug.Log(destination);
         //Debug.DrawRay(transform.position, transform.TransformDirection(destination - transform.position), Color.black);
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((-destination + transform.position).normalized), 0.003f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((-destination + transform.position).normalized), 0.003f);*/
 
     }
 

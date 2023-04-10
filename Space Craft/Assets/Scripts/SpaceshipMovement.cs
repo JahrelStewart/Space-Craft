@@ -9,12 +9,9 @@ public class SpaceshipMovement : MonoBehaviour
     private float torque = 1.15f;
     private float thrust = 20f;
     private Rigidbody rb;
-    private float hp = 100;
-    private float max_hp = 100;
-    private float collision_damage = 20;
-    private float rocket_damage = 40;
-
-    public event Action<float> OnHealthChange = delegate { };
+    private float collision_damage = 10;
+    private float rocket_damage = 20;
+    private float laser_damage = 30;
 
     private void Start()
     {
@@ -36,22 +33,23 @@ public class SpaceshipMovement : MonoBehaviour
         rb.AddRelativeTorque(0, (Input.GetAxis("Horizontal")) * torque, 0);
     }
 
-    public void takeDamage(float damage)
-    {
-        hp -= damage;
-        OnHealthChange(hp / max_hp);
-    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name.Contains("Rocket"))
         {
             Debug.Log("Rocket damage");
-            takeDamage(rocket_damage);
+            GetComponent<HealthPoints>().takeDamage(rocket_damage);
         } else if (collision.gameObject.name.Contains("Asteroid"))
         {
             Debug.Log("Asteroid damage");
-            takeDamage(collision_damage);
+            GetComponent<HealthPoints>().takeDamage(collision_damage);
+        }
+        else if (collision.gameObject.name.Contains("Asteroid"))
+        {
+            Debug.Log("Laser damage");
+            GetComponent<HealthPoints>().takeDamage(laser_damage);
         }
     }
 }

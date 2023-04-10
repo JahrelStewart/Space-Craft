@@ -26,6 +26,8 @@ public class Flock : MonoBehaviour
     {
         if (boids != null)
         {
+            if (boids.Count == 0)
+                return;
             int numBoids = boids.Count;
             var boidData = new BoidData[numBoids];
 
@@ -72,7 +74,15 @@ public class Flock : MonoBehaviour
             boid.Initialize(settings, target);
             boids[i] = boid;
         }
-    }  
+    }
+    public void SpawnAnAllie()
+    {
+        Vector3 pos = transform.position + Random.insideUnitSphere * spawnRadius;
+        Boid boid = Instantiate(boidPrefab, pos, Quaternion.identity).gameObject.GetComponent<Boid>();
+        boid.transform.forward = Random.insideUnitSphere;
+        boid.Initialize(settings, target);
+        boids.Add(boid);
+    }
 
     public struct BoidData
     {
