@@ -48,7 +48,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rocket_prefab: {fileID: 4344599291238028707, guid: 43773c50c1cff52469ae8453469d36bf, type: 3}
   explosion_system_prefab: {fileID: 4091555021066598580, guid: d5d7f221cfa1a49478bab5075cfada43, type: 3}
-  thrust: 35
+  avgFlockHeading: {x: 0, y: 0, z: 0}
+  avgAvoidanceHeading: {x: 0, y: 0, z: 0}
+  centreOfFlockmates: {x: 0, y: 0, z: 0}
+  numPerceivedFlockmates: 0
+  position: {x: 0, y: 0, z: 0}
+  forward: {x: 0, y: 0, z: 0}
 --- !u!54 &5205204145197282452
 Rigidbody:
   m_ObjectHideFlags: 0

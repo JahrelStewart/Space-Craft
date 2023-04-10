@@ -4740,6 +4740,8 @@ MonoBehaviour:
   enemies:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   enemyPrefab: {fileID: 7564610916669703854, guid: c7bd5c71ab13c41359305dc1af814468, type: 3}
 --- !u!1 &1992112956
 GameObject:

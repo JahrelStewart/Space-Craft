@@ -58,70 +58,74 @@ public class SpaceshipAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if(gameObject != null)
         {
-            missile_launcher_equipped = true;
-            laser_gun_equipped = false;
-            missile_image.color = Color.green;
-            lasergun_image.color = Color.white;
-        } else if (Input.GetKeyDown(KeyCode.E))
-        {
-            missile_launcher_equipped = false;
-            laser_gun_equipped = true;
-            missile_image.color = Color.white;
-            lasergun_image.color = Color.green;
-        }
-
-        if (missile_launcher_equipped)
-        {
-            laser_gun_crosshair.enabled = false;
-            if (sensor.Objects.Count == 0)
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                missile_crosshair.enabled = false;
+                missile_launcher_equipped = true;
+                laser_gun_equipped = false;
+                missile_image.color = Color.green;
+                lasergun_image.color = Color.white;
             }
-            else
+            else if (Input.GetKeyDown(KeyCode.E))
             {
-                if (target_in_focus != null)
-                    missile_crosshair_panel.position = Camera.main.WorldToScreenPoint(target_in_focus.transform.position);
+                missile_launcher_equipped = false;
+                laser_gun_equipped = true;
+                missile_image.color = Color.white;
+                lasergun_image.color = Color.green;
+            }
 
-                missile_crosshair.enabled = true;
-                GameObject closest_target = getClosestTarget();
-                if (target_in_focus == null || target_in_focus != closest_target)
+            if (missile_launcher_equipped)
+            {
+                laser_gun_crosshair.enabled = false;
+                if (sensor.Objects.Count == 0)
                 {
-                    target_in_focus = closest_target;
-                    StartCoroutine(FocusOnTarget());
+                    missile_crosshair.enabled = false;
+                }
+                else
+                {
+                    if (target_in_focus != null)
+                        missile_crosshair_panel.position = Camera.main.WorldToScreenPoint(target_in_focus.transform.position);
+
+                    missile_crosshair.enabled = true;
+                    GameObject closest_target = getClosestTarget();
+                    if (target_in_focus == null || target_in_focus != closest_target)
+                    {
+                        target_in_focus = closest_target;
+                        StartCoroutine(FocusOnTarget());
+                    }
+                }
+                if (Input.GetButtonDown("Fire1") && sensor.Objects.Count > 0)
+                {
+                    rocket_launch_timer = 0;
+                    GameObject rocket = Instantiate(rocket_prefab, spaceship.transform.position + transform.forward * 3, rocket_prefab.transform.rotation);
+                    rocket.transform.localScale /= 3;
+                    target = getClosestTarget();
+                    rocket.transform.LookAt(target.transform);
+                    StartCoroutine(LaunchRocket(rocket));
                 }
             }
-            if (Input.GetButtonDown("Fire1") && sensor.Objects.Count > 0)
+            else if (laser_gun_equipped)
             {
-                rocket_launch_timer = 0;
-                GameObject rocket = Instantiate(rocket_prefab, spaceship.transform.position + transform.forward * 3, rocket_prefab.transform.rotation);
-                rocket.transform.localScale /= 3;
-                target = getClosestTarget();
-                rocket.transform.LookAt(target.transform);
-                StartCoroutine(LaunchRocket(rocket));
-            }
-        } else if (laser_gun_equipped)
-        {
-            laser_gun_crosshair.enabled = true;
-            missile_crosshair.enabled = false;
+                laser_gun_crosshair.enabled = true;
+                missile_crosshair.enabled = false;
 
-            if (Input.GetButtonDown("Fire1"))
-            {
-                lasergun_launch_timer = 0;
-                GameObject laserbeam_left = Instantiate(laserbeam_prefab, spaceship.transform.position + transform.forward * 3 - transform.right * 2.2f, laserbeam_prefab.transform.rotation);
-                GameObject laserbeam_right = Instantiate(laserbeam_prefab, spaceship.transform.position + transform.forward * 3 + transform.right * 2.2f, laserbeam_prefab.transform.rotation);
-                //rocket.transform.localScale /= 3;
-                //target = getClosestTarget();
-                //laserbeam_left.transform.LookAt(transform.forward);
-                //laserbeam_right.transform.LookAt(transform.forward);
-                laserbeam_left.transform.forward = Quaternion.AngleAxis(-1, transform.right) * Quaternion.AngleAxis(4f, transform.up) * transform.forward;
-                laserbeam_right.transform.forward = Quaternion.AngleAxis(-1, transform.right) * Quaternion.AngleAxis(-3f, transform.up) * transform.forward;
-                StartCoroutine(LaunchLaserBeam(laserbeam_left));
-                StartCoroutine(LaunchLaserBeam(laserbeam_right));
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    lasergun_launch_timer = 0;
+                    GameObject laserbeam_left = Instantiate(laserbeam_prefab, spaceship.transform.position + transform.forward * 3 - transform.right * 2.2f, laserbeam_prefab.transform.rotation);
+                    GameObject laserbeam_right = Instantiate(laserbeam_prefab, spaceship.transform.position + transform.forward * 3 + transform.right * 2.2f, laserbeam_prefab.transform.rotation);
+                    //rocket.transform.localScale /= 3;
+                    //target = getClosestTarget();
+                    //laserbeam_left.transform.LookAt(transform.forward);
+                    //laserbeam_right.transform.LookAt(transform.forward);
+                    laserbeam_left.transform.forward = Quaternion.AngleAxis(-1, transform.right) * Quaternion.AngleAxis(4f, transform.up) * transform.forward;
+                    laserbeam_right.transform.forward = Quaternion.AngleAxis(-1, transform.right) * Quaternion.AngleAxis(-3f, transform.up) * transform.forward;
+                    StartCoroutine(LaunchLaserBeam(laserbeam_left));
+                    StartCoroutine(LaunchLaserBeam(laserbeam_right));
+                }
             }
-        }
-
+        }        
     }
 
     private IEnumerator FocusOnTarget()
