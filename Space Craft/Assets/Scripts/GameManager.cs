@@ -18,7 +18,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        num_of_spawned_allies = 0;
+        num_of_spawned_enemies = 0;
+        points = 0;
+        SpawnEnemies();
     }
 
     public static void resetGame()
@@ -31,12 +34,14 @@ public class GameManager : MonoBehaviour
     public void SpawnEnemies()
     {
         int spawn_counter = num_of_spawned_enemies;
+
         while (spawn_counter < (num_of_spawned_allies + 1) * 2)
         {
             spawn_counter++;
             GameObject.Find("EnemiesSystem").GetComponent<EnemiesAI>().SpawnAnEnemy();
             foreach(EnemyAI enemy in GameObject.Find("EnemiesSystem").GetComponent<EnemiesAI>().enemies){
                 enemy.GetComponent<HealthPoints>().max_hp = 100 * (num_of_spawned_allies + 1);
+                enemy.GetComponent<HealthPoints>().hp = 100 * (num_of_spawned_allies + 1);
             }
         }
         num_of_spawned_enemies = spawn_counter;

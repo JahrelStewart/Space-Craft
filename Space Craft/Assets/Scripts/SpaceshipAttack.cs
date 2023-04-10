@@ -47,7 +47,7 @@ public class SpaceshipAttack : MonoBehaviour
         foreach (GameObject g in sensor.Objects)
         {
             //Debug.Log(g.name);
-            if (g != null && g.name.Contains("Tanker"))
+            if (spaceship != null && g != null && g.name.Contains("Tanker"))
             {
                 float dist = Vector3.Distance(spaceship.transform.position, g.transform.position);
                 if (dist < min_distance)
