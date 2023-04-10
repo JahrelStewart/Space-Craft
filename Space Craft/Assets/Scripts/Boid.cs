@@ -152,14 +152,14 @@ public class Boid : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        /*if(directions.Length > 0)
+/*        if (directions.Length > 0)
         {
             for (int i = 0; i < directions.Length; i++)
-            {                           
-                Vector3 dir = cachedTransform.TransformDirection(directions[i]);                
+            {
+                Vector3 dir = cachedTransform.TransformDirection(directions[i]);
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawRay(position, dir * Flock.BoidSettings.collisionAvoidDst);
-            }            
-        }*/   
+                Gizmos.DrawRay(position, dir * settings.collisionAvoidDst);
+            }
+        }*/
     }
 }

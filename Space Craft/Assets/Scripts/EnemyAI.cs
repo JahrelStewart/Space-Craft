@@ -1,99 +1,142 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyAI : MonoBehaviour
 {
-    public GameObject player;
-    public AISensor sensor;
+    FlockingSettings settings;    
     public GameObject rocket_prefab;
     public ParticleSystem explosion_system_prefab;
-    private float see_radius = 125f;
-    private float attack_radius = 55f;
-    private float arrive_radius = 10f;
-    private float torque = 1.15f;
-    private float thrust = 20f;
-    private Rigidbody rb;
-    private Vector3 destination;
-    private float max_velocity = 10f;
+    private float rotation_speed = 50.0f;
+    private float attack_radius = 80f;      
     private float timer = 6f;
-    private float time = 0;
-    private float rocket_launch_time = 1.5f;
-    private float rocket_launch_timer = 1.5f;
-    private Vector3 target;
+    private float time = 0;    
     private float rocket_speed = 5f;
+    private Vector3 randomSpot;
+    private int offset = 80; // origin of radius which is 50 away from target position
+    private int radius = 50; // Enemy will move anywhere within the given radius of the offset position
+
+    // To update:    
+    [HideInInspector]
+    public Vector3 avgFlockHeading;
+    [HideInInspector]
+    public Vector3 avgAvoidanceHeading;
+    [HideInInspector]
+    public Vector3 centreOfFlockmates;
+    [HideInInspector]
+    public int numPerceivedFlockmates;
+
+    //For Obstacle Avoidance:
+    private const int numViewDirections = 300;
+    private Vector3[] directions;
+
+    private Transform cachedTransform;
+    private Transform target; //target that follows player    
+    [HideInInspector]
+    public Vector3 position;
+    [HideInInspector]
+    public Vector3 forward;
+    private Vector3 velocity;
+
+    void Awake()
+    {
+        cachedTransform = transform;
+    }
 
     // Start is called before the first frame update
     void Start()
+    {        
+        randomSpot = Random.insideUnitSphere;
+        GeneratePerceptionPoints();
+    }
+
+    public void Initialize(FlockingSettings settings, Transform player)
     {
-        destination = Vector3.zero;
-        rb = GetComponent<Rigidbody>();
+        this.target = player;
+        this.settings = settings;
+
+        position = cachedTransform.position;
+        forward = cachedTransform.forward;
+
+        float startSpeed = (settings.minSpeed + settings.maxSpeed) / 2;
+        velocity = transform.forward * startSpeed;
     }
 
     // Update is called once per frame
-    void Update()
+    public void CalculateMovement()
     {
-/*        time += Time.deltaTime;
-        if(destination == Vector3.zero || time > timer || sensor.Objects.Count > 0)
+        time += Time.deltaTime;
+               
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+        Quaternion dirToTarget = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
+
+        if (time > timer && distance < attack_radius)
         {
             time = 0;
-            float dist = Vector3.Distance(transform.position, player.transform.position);
-            //Debug.Log("Distance between player and enemy is: " + dist);
-            if (dist > see_radius)
-                Wander();
-            else if (dist < attack_radius && sensor.Objects.Count > 0)
-                Attack();
-            else
-                Seek();
+            Attack();
         }
-        else
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, dirToTarget, rotation_speed * Time.deltaTime);        
+
+        Vector3 acceleration = Vector3.zero;        
+
+        if (target != null)
         {
-            if (rb.velocity.magnitude < max_velocity)
-            {
-                rb.AddRelativeForce((-destination + transform.position).normalized * thrust);
-            }
+            float aheadBy = (int)(distance / 10) + offset;
+            Vector3 futurePositionOfTarget = target.transform.position + (randomSpot * radius) + target.transform.forward * aheadBy;
+            Vector3 offsetToTarget = (futurePositionOfTarget - position);
+            acceleration = SteerTowards(offsetToTarget) * settings.targetWeight;
         }
-        //Debug.Log(destination);
-        //Debug.DrawRay(transform.position, transform.TransformDirection(destination - transform.position), Color.black);
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((-destination + transform.position).normalized), 0.003f);*/
 
-    }
+        if (numPerceivedFlockmates != 0)
+        {
+            centreOfFlockmates /= numPerceivedFlockmates;
 
-    public void Wander()
-    {
-        rb.velocity *= 0.3f;
-        rb.angularVelocity *= 0.3f;
-        Debug.Log("Wandering");
-        Vector3 rotated_fwd = Quaternion.AngleAxis(Random.Range(-180, 180), Vector3.up) * transform.forward;
-        rotated_fwd = Quaternion.AngleAxis(Random.Range(-180, 180), Vector3.forward) * transform.forward;
-        rotated_fwd = Quaternion.AngleAxis(Random.Range(-180, 180), Vector3.right) * transform.forward;
-        rotated_fwd.Normalize();
+            Vector3 offsetToFlockmatesCentre = (centreOfFlockmates - position);
 
-        destination = transform.position + rotated_fwd * 15f;
-        //Debug.Log("Destination pos is: " + destination);
+            var alignmentForce = SteerTowards(avgFlockHeading) * settings.alignWeight;
+            var cohesionForce = SteerTowards(offsetToFlockmatesCentre) * settings.cohesionWeight;
+            var seperationForce = SteerTowards(avgAvoidanceHeading) * settings.seperateWeight;
+
+            acceleration += alignmentForce;
+            acceleration += cohesionForce;
+            acceleration += seperationForce;
+        }
+
+        if (IsGoingToCollide())
+        {
+            Vector3 collisionAvoidDir = GetWhiskers();
+            Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * settings.avoidCollisionWeight;
+            acceleration += collisionAvoidForce;
+        }
+
+        velocity += acceleration * Time.deltaTime;
+        float speed = velocity.magnitude;
+        Vector3 dir = velocity / speed;
+        speed = Mathf.Clamp(speed, settings.minSpeed, settings.maxSpeed);
+        velocity = dir * speed;        
+
+        cachedTransform.position += velocity * Time.deltaTime;
+        cachedTransform.forward = transform.forward;
+        position = cachedTransform.position;
+        forward = transform.forward;
+
     }
 
     public void Attack()
     {
-        Debug.Log("Attacking");
-        Debug.DrawRay(transform.position + 0.5f * transform.forward, sensor.Objects[0].transform.position - transform.position);
-        rocket_launch_timer = 0;
+        //Debug.Log("Attacking");
+        //Debug.DrawRay(transform.position + 0.5f * transform.forward, target.transform.position - transform.position);        
         GameObject rocket = Instantiate(rocket_prefab, transform.position, rocket_prefab.transform.rotation);
         rocket.transform.localScale /= 3;
-        target = sensor.Objects[0].transform.position;
-        rocket.transform.LookAt(target);
+        rocket.transform.LookAt(target.transform.position);
 
-        rb.velocity *= 0.3f;
-        rb.angularVelocity *= 0.3f;
-        Vector3 rotated_fwd = Quaternion.AngleAxis(Random.Range(-25, 25), Vector3.up) * transform.forward;
-        rotated_fwd = Quaternion.AngleAxis(Random.Range(-25, 25), Vector3.forward) * transform.forward;
-        rotated_fwd = Quaternion.AngleAxis(Random.Range(-25, 25), Vector3.right) * transform.forward;
-        rotated_fwd.Normalize();
-        destination = transform.position + rotated_fwd * 15f;
-
-        StartCoroutine(LaunchRocket(rocket));
+        StartCoroutine(LaunchRocket(rocket, target.transform.position));
     }
-    private IEnumerator LaunchRocket(GameObject rocket)
+    private IEnumerator LaunchRocket(GameObject rocket, Vector3 target)
     {
         while (Vector3.Distance(target, rocket.transform.position) > 1f)
         {
@@ -111,11 +154,79 @@ public class EnemyAI : MonoBehaviour
         Destroy(exp, exp.main.duration);
     }
 
-    public void Seek()
+    private void GeneratePerceptionPoints()
     {
-        Debug.Log("Seeking");
-        rb.velocity *= 0.3f;
-        rb.angularVelocity *= 0.3f;
-        destination = player.gameObject.transform.position;
+        directions = new Vector3[numViewDirections];
+
+        float goldenRatio = (1 + Mathf.Sqrt(5)) / 2;
+        float angleIncrement = Mathf.PI * 2 * goldenRatio;
+
+        for (int i = 0; i < numViewDirections; i++)
+        {
+            float t = (float)i / numViewDirections;
+            float inclination = Mathf.Acos(1 - 2 * t);
+            float azimuth = angleIncrement * i;
+
+            float x = Mathf.Sin(inclination) * Mathf.Cos(azimuth);
+            float y = Mathf.Sin(inclination) * Mathf.Sin(azimuth);
+            float z = Mathf.Cos(inclination);
+            directions[i] = new Vector3(x, y, z);
+        }
+    }
+
+    bool IsGoingToCollide()
+    {
+        Vector3[] rayDirections = directions;
+
+        for (int i = 0; i < rayDirections.Length; i++)
+        {
+            Vector3 dir = cachedTransform.TransformDirection(rayDirections[i]);
+
+            RaycastHit hit;
+            if (Physics.SphereCast(position, settings.boundsRadius, dir, out hit, settings.collisionAvoidDst, settings.obstacleMask))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    Vector3 GetWhiskers()
+    {
+        Vector3[] rayDirections = directions;
+
+        for (int i = 0; i < rayDirections.Length; i++)
+        {
+            Vector3 dir = cachedTransform.TransformDirection(rayDirections[i]);
+            Ray ray = new Ray(position, dir);
+            if (!Physics.SphereCast(ray, settings.boundsRadius, settings.collisionAvoidDst, settings.obstacleMask))
+            {
+                return dir;
+            }
+        }
+
+        return forward;
+    }
+    Vector3 SteerTowards(Vector3 vector)
+    {
+        Vector3 v = vector.normalized * settings.maxSpeed - velocity;
+        return Vector3.ClampMagnitude(v, settings.maxSteerForce);
+    }
+
+    private void OnDrawGizmos()
+    {
+        /* Gizmos.color = Color.magenta;
+         Gizmos.DrawLine(transform.position, player.transform.position);*/
+
+        /*if (directions.Length > 0)
+        {
+            for (int i = 0; i < directions.Length; i++)
+            {
+                Vector3 dir = transform.TransformDirection(directions[i]);
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawRay(transform.position, dir * settings.collisionAvoidDst);
+            }
+        }*/
     }
 }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a489363e7445ac49b8bad76b48cec54, type: 3}
-  m_Name: Flocking Settings
+  m_Name: Enemy Settings
   m_EditorClassIdentifier: 
-  minSpeed: 20
-  maxSpeed: 30
+  minSpeed: 7
+  maxSpeed: 15
   perceptionRadius: 40
   avoidanceRadius: 10
   maxSteerForce: 3
@@ -23,7 +23,7 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 320
-  targetWeight: 5
+  targetWeight: 10
   boundsRadius: 1
-  avoidCollisionWeight: 70
+  avoidCollisionWeight: 50
   collisionAvoidDst: 10
