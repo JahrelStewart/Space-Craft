@@ -39,6 +39,8 @@ public class EnemiesAI : MonoBehaviour
     {
         if (enemies != null)
         {
+            if (enemies.Count == 0)
+                return;
             int numEnemy = enemies.Count;
             var enemyData = new EnemyData[numEnemy];
 
@@ -85,6 +87,14 @@ public class EnemiesAI : MonoBehaviour
             enemy.Initialize(settings, player);
             enemies[i] = enemy;
         }
+    }
+    public void SpawnAnEnemy()
+    {
+        Vector3 pos = transform.position + Random.insideUnitSphere * spawnRadius;
+        EnemyAI enemy = Instantiate(enemyPrefab, pos, Quaternion.identity).gameObject.GetComponent<EnemyAI>();
+        enemy.transform.forward = Random.insideUnitSphere;
+        enemy.Initialize(settings, player);
+        enemies.Add(enemy);
     }
     public struct EnemyData
     {

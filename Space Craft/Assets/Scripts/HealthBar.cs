@@ -44,13 +44,12 @@ public class HealthBar : MonoBehaviour
     {
         if (!transform.name.Contains("Spaceship"))
         {
-            AsteroidFlotation af = transform.parent.Find("Asteroid").GetComponent<AsteroidFlotation>();
-            hpcanvas.transform.position += af.getFlotationDir() * af.getFlotationSpeed() * Time.deltaTime;
-            hpcanvas.transform.LookAt(Camera.main.transform);
-/*            Vector3 init_scale = new Vector3(15, 15, 15);
-            hpcanvas.transform.localScale = transform.parent.Find("Asteroid").localScale.magnitude / init_scale.magnitude * Vector3.one;*/
+            if(transform.parent != null && transform.parent.Find("Asteroid") != null)
+            {
+                AsteroidFlotation af = transform.parent.Find("Asteroid").GetComponent<AsteroidFlotation>();
+                hpcanvas.transform.position += af.getFlotationDir() * af.getFlotationSpeed() * Time.deltaTime;
+                hpcanvas.transform.LookAt(Camera.main.transform);
+            }
         }
-        /*       
-                transform.Rotate(0, 180, 0);*/
     }
 }

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI points_text;
     public TextMeshProUGUI allies_text;
     private static int num_of_spawned_allies = 0;
+    private static int num_of_spawned_enemies = 0;
     private static int points = 0;
     private static int asteroid_gain = 5;
     private static int enemy_gain = 15;
@@ -17,12 +18,32 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
+    }
+
+    public void SpawnEnemies()
+    {
+        int spawn_counter = num_of_spawned_enemies;
+        while (spawn_counter < (num_of_spawned_allies + 1) * 2)
+        {
+            spawn_counter++;
+            GameObject.Find("EnemiesSystem").GetComponent<EnemiesAI>().SpawnAnEnemy();
+            foreach(EnemyAI enemy in GameObject.Find("EnemiesSystem").GetComponent<EnemiesAI>().enemies){
+                enemy.GetComponent<HealthPoints>().max_hp = 100 * (num_of_spawned_allies + 1);
+            }
+        }
+        num_of_spawned_enemies = spawn_counter;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (num_of_spawned_enemies != (num_of_spawned_allies + 1) * 2)
+        {
+            SpawnEnemies();
+        }
+
         points_text.text = points.ToString();
         allies_text.text = num_of_spawned_allies.ToString();
 
@@ -47,5 +68,6 @@ public class GameManager : MonoBehaviour
     public static void enemyDestroyed()
     {
         points += enemy_gain;
+        num_of_spawned_enemies--;
     }
 }

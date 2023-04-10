@@ -42,7 +42,23 @@ public class SpaceshipAttack : MonoBehaviour
         float min_distance = float.MaxValue;
         GameObject closest_target = null;
 
-        foreach(GameObject g in sensor.Objects)
+        foreach (GameObject g in sensor.Objects)
+        {
+            Debug.Log(g.name);
+            if (g.name.Contains("Tanker"))
+            {
+                float dist = Vector3.Distance(spaceship.transform.position, g.transform.position);
+                if (dist < min_distance)
+                {
+                    min_distance = dist;
+                    closest_target = g;
+                }
+            }
+        }
+        if (closest_target != null)
+            return closest_target;
+
+        foreach (GameObject g in sensor.Objects)
         {
             float dist = Vector3.Distance(spaceship.transform.position, g.transform.position);
             if (dist < min_distance)
@@ -144,7 +160,7 @@ public class SpaceshipAttack : MonoBehaviour
         {
             float real_speed = missile_speed;
             if (Vector3.Distance(target.transform.position, rocket.transform.position) < 8f)
-                real_speed *= 1.5f;
+                real_speed *= 2.5f;
             rocket.transform.position += (target.transform.position - rocket.transform.position) * real_speed * Time.deltaTime;
             rocket.transform.LookAt(target.transform);
             yield return null;

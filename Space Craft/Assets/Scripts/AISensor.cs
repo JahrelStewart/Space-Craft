@@ -16,7 +16,7 @@ public class AISensor : MonoBehaviour
     public LayerMask layers;
     public List<GameObject> Objects = new List<GameObject>();
 
-    Collider[] colliders = new Collider[50];
+    Collider[] colliders = new Collider[250];
     Mesh mesh;
     int count;
     float scan_interval;
@@ -62,7 +62,7 @@ public class AISensor : MonoBehaviour
         Vector3 dir = dest - origin;
 
         //Debug.Log(dir);
-        Vector3 up_normalized = new Vector3(Mathf.Abs(Mathf.Round(transform.up.normalized.x)), Mathf.Abs(Mathf.Round(transform.up.normalized.y)), Mathf.Abs(Mathf.Round(transform.up.normalized.z)));
+        Vector3 up_normalized = new Vector3(Mathf.Round(Mathf.Abs(transform.up.normalized.x)), Mathf.Round(Mathf.Abs(transform.up.normalized.y)), Mathf.Round(Mathf.Abs(transform.up.normalized.z)));
         if(up_normalized.magnitude > 1)
         {
             if(up_normalized.x == 1)
@@ -77,8 +77,6 @@ public class AISensor : MonoBehaviour
                 up_normalized = Vector3.forward;
             }
         }
-
-        //Debug.Log(up_normalized);
 
         if (up_normalized == Vector3.up)
         {
