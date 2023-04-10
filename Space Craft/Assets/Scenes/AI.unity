@@ -925,6 +925,7 @@ GameObject:
   - component: {fileID: 403574676}
   - component: {fileID: 403574675}
   - component: {fileID: 403574674}
+  - component: {fileID: 403574680}
   m_Layer: 0
   m_Name: Spaceship
   m_TagString: Untagged
@@ -945,6 +946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foreground: {fileID: 1086787157}
+  hpcanvas: {fileID: 1992112960}
 --- !u!114 &403574675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,6 +1031,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &403574680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403574673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7203bc69a48a9141a40345fa091f9f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  max_hp: 100
 --- !u!1 &514310397
 GameObject:
   m_ObjectHideFlags: 0
@@ -3835,10 +3851,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asteroids:
-  - {fileID: 9163713454527741698, guid: 024bf000e2e5bb341bd0207de7728142, type: 3}
-  - {fileID: 3026560044820447130, guid: 7aedd6b1debed0a46b4226bbd91d98e4, type: 3}
-  - {fileID: 5553880033021391795, guid: 1ed3cf6408c6bc642b827a3a0ab20a50, type: 3}
-  - {fileID: 1065984056906322301, guid: db7706aae811d2746b56c1093fb6e680, type: 3}
+  - {fileID: 8590692049013621788, guid: 671aa7c2466100142ad915c3ee0a5b86, type: 3}
+  - {fileID: 8710798471374230481, guid: 7c7a33345e29d0248945182f121afa64, type: 3}
+  - {fileID: 7850082698639767520, guid: 3cc2ff8ba48c98646ab7b989d6d6bc76, type: 3}
+  - {fileID: 1860354614368165992, guid: 61e2092fc8e5628448eee103080be5ae, type: 3}
 --- !u!45 &1262596319
 Skybox:
   m_ObjectHideFlags: 0
@@ -4722,9 +4738,6 @@ MonoBehaviour:
   compute: {fileID: 7200000, guid: 1a95238cb26671c4191cb2f46ada14d1, type: 3}
   player: {fileID: 317923340}
   enemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   enemyPrefab: {fileID: 7564610916669703854, guid: c7bd5c71ab13c41359305dc1af814468, type: 3}
