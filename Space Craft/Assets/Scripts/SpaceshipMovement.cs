@@ -37,19 +37,11 @@ public class SpaceshipMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name.Contains("Rocket"))
-        {
-            Debug.Log("Rocket damage");
-            GetComponent<HealthPoints>().takeDamage(rocket_damage);
-        } else if (collision.gameObject.name.Contains("Asteroid"))
+        if (collision.gameObject.name.Contains("Asteroid"))
         {
             Debug.Log("Asteroid damage");
             GetComponent<HealthPoints>().takeDamage(collision_damage);
         }
-        else if (collision.gameObject.name.Contains("Laser"))
-        {
-            Debug.Log("Laser damage");
-            GetComponent<HealthPoints>().takeDamage(laser_damage);
-        }
+
     }
 }

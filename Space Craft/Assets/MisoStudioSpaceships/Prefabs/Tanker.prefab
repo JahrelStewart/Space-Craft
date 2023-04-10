@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4974307145611770}
   - component: {fileID: 7564610916669703854}
-  - component: {fileID: 5205204145197282452}
   - component: {fileID: -1481058760802785224}
   - component: {fileID: 8248658129084832043}
   - component: {fileID: -2592300059457860995}
@@ -91,22 +90,6 @@ MonoBehaviour:
   numPerceivedFlockmates: 0
   position: {x: 0, y: 0, z: 0}
   forward: {x: 0, y: 0, z: 0}
---- !u!54 &5205204145197282452
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1044101965864496}
-  serializedVersion: 2
-  m_Mass: 5
-  m_Drag: 1
-  m_AngularDrag: 2
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &-1481058760802785224
 BoxCollider:
   m_ObjectHideFlags: 0

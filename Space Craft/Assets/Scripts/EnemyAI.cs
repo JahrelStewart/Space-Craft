@@ -7,19 +7,20 @@ using UnityEngine.UIElements;
 
 public class EnemyAI : MonoBehaviour
 {
-    FlockingSettings settings;    
+    FlockingSettings settings;
     public GameObject rocket_prefab;
     public ParticleSystem explosion_system_prefab;
     private float rotation_speed = 50.0f;
-    private float attack_radius = 80f;      
-    private float timer = 6f;
+    private float attack_radius = 120f;      
+    private float timer = 10f;
     private float time = 0;    
     private float rocket_speed = 5f;
-    private float rocket_damage = 20;
+    private float rocket_damage = 2;
     private float laser_damage = 30;
     private Vector3 randomSpot;
     private int offset = 80; // origin of radius which is 50 away from target position
     private int radius = 50; // Enemy will move anywhere within the given radius of the offset position
+    private float explosion_radius = 5f;
 
     // To update:    
     [HideInInspector]
@@ -55,6 +56,28 @@ public class EnemyAI : MonoBehaviour
         GeneratePerceptionPoints();
     }
 
+    public Transform getClosesTarget()
+    {
+        float min_distance = float.MaxValue;
+        GameObject closest_target = null;
+
+        foreach (GameObject g in GameObject.Find("EnemiesSystem").GetComponent<EnemiesAI>().allies)
+        {
+            //Debug.Log(g.name);
+            if (g != null)
+            {
+                float dist = Vector3.Distance(transform.position, g.transform.position);
+                if (dist < min_distance)
+                {
+                    min_distance = dist;
+                    closest_target = g;
+                }
+            }
+        }
+
+        return closest_target.transform;
+    }
+
     public void Initialize(FlockingSettings settings, Transform player)
     {
         this.target = player;
@@ -71,7 +94,8 @@ public class EnemyAI : MonoBehaviour
     public void CalculateMovement()
     {
         time += Time.deltaTime;
-               
+        target = getClosesTarget();
+
         float distance = Vector3.Distance(transform.position, target.transform.position);
         Quaternion dirToTarget = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
 
@@ -140,7 +164,7 @@ public class EnemyAI : MonoBehaviour
     }
     private IEnumerator LaunchRocket(GameObject rocket, Vector3 target)
     {
-        while (Vector3.Distance(target, rocket.transform.position) > 1f)
+        while (Vector3.Distance(target, rocket.transform.position) > 3f)
         {
             float real_speed = rocket_speed;
             if (Vector3.Distance(target, rocket.transform.position) < 8f)
@@ -150,7 +174,18 @@ public class EnemyAI : MonoBehaviour
             yield return null;
         }
         // Deal some damage to target
-        ParticleSystem exp = Instantiate(explosion_system_prefab, rocket.transform.position, explosion_system_prefab.transform.rotation); ;
+        Collider[] colliders = Physics.OverlapSphere(rocket.transform.position, explosion_radius);
+        foreach(Collider col in colliders)
+        {
+            if(col.transform.parent != null)
+                col.transform.parent.GetComponent<HealthPoints>().takeDamage(rocket_damage);
+            else if(col.transform.GetComponent<HealthPoints>() != null)
+                col.transform.GetComponent<HealthPoints>().takeDamage(rocket_damage);
+        }
+/*        if(Vector3.Distance(rocket.transform.position, GameObject.Find("Spaceship").transform.Find("Cylinder").transform.position) < explosion_radius){
+            GameObject.Find("Spaceship").GetComponent<HealthPoints>().takeDamage(rocket_damage);
+        }*/
+        ParticleSystem exp = Instantiate(explosion_system_prefab, rocket.transform.position, explosion_system_prefab.transform.rotation);
         exp.Play();
         Destroy(rocket);
         Destroy(exp, exp.main.duration);
@@ -216,14 +251,14 @@ public class EnemyAI : MonoBehaviour
         return Vector3.ClampMagnitude(v, settings.maxSteerForce);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.name.Contains("Rocket"))
+        if (collider.gameObject.name.Contains("Rocket"))
         {
             Debug.Log("Rocket damage From Player");
             GetComponent<HealthPoints>().takeDamage(rocket_damage);
         }
-        else if (collision.gameObject.name.Contains("Laser"))
+        else if (collider.gameObject.name.Contains("Laser"))
         {
             Debug.Log("Laser damage From Player");
             GetComponent<HealthPoints>().takeDamage(laser_damage);

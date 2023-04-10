@@ -30,11 +30,24 @@ public class HealthPoints : MonoBehaviour
 
         if(transform.name.Contains("Spaceship") && hp <= 0f)
         {
+            GameManager.resetGame();
             Destroy(gameObject.transform.Find("PrototypeZero").gameObject);
             Destroy(gameObject.transform.Find("Cylinder").gameObject);
             Destroy(gameObject.transform.Find("Sphere").gameObject);
 
             Invoke("LoadEndScene", 2f);
+        }
+        else if (transform.name.Contains("Tanker") && hp <= 0f)
+        {
+            GameObject.Find("EnemiesSystem").GetComponent<EnemiesAI>().enemies.Remove(transform.GetComponent<EnemyAI>());
+            Destroy(transform.gameObject);
+            GameManager.enemyDestroyed();
+        }
+        else if (transform.name.Contains("BlueBull") && hp <= 0f)
+        {
+            GameObject.Find("EnemiesSystem").GetComponent<EnemiesAI>().allies.Remove(transform.gameObject);
+            Destroy(transform.gameObject);
+            GameManager.allieDestroyed();
         }
     }
 

@@ -28,6 +28,8 @@ public class SpaceshipAttack : MonoBehaviour
     private GameObject target;
     private bool missile_launcher_equipped = false;
     private bool laser_gun_equipped = false;
+    private float explosion_radius = 5f;
+    private float rocket_damage = 25;
 
     // Start is called before the first frame update
     void Start()
@@ -44,8 +46,8 @@ public class SpaceshipAttack : MonoBehaviour
 
         foreach (GameObject g in sensor.Objects)
         {
-            Debug.Log(g.name);
-            if (g.name.Contains("Tanker"))
+            //Debug.Log(g.name);
+            if (g != null && g.name.Contains("Tanker"))
             {
                 float dist = Vector3.Distance(spaceship.transform.position, g.transform.position);
                 if (dist < min_distance)
@@ -60,11 +62,14 @@ public class SpaceshipAttack : MonoBehaviour
 
         foreach (GameObject g in sensor.Objects)
         {
-            float dist = Vector3.Distance(spaceship.transform.position, g.transform.position);
-            if (dist < min_distance)
+            if(g != null)
             {
-                min_distance = dist;
-                closest_target = g;
+                float dist = Vector3.Distance(spaceship.transform.position, g.transform.position);
+                if (dist < min_distance)
+                {
+                    min_distance = dist;
+                    closest_target = g;
+                }
             }
         }
 
@@ -160,7 +165,7 @@ public class SpaceshipAttack : MonoBehaviour
     }
     private IEnumerator LaunchRocket(GameObject rocket)
     {
-        while (Vector3.Distance(target.transform.position, rocket.transform.position) > 1f)
+        while (rocket != null && target != null && Vector3.Distance(target.transform.position, rocket.transform.position) > 3f)
         {
             float real_speed = missile_speed;
             if (Vector3.Distance(target.transform.position, rocket.transform.position) < 8f)
@@ -169,6 +174,26 @@ public class SpaceshipAttack : MonoBehaviour
             rocket.transform.LookAt(target.transform);
             yield return null;
         }
+        if (rocket == null)
+            yield break;
+
+        Collider[] colliders = Physics.OverlapSphere(rocket.transform.position, explosion_radius);
+        foreach (Collider col in colliders)
+        {
+            if (col.transform.parent != null && col.transform.parent.name.Contains("Spaceship"))
+                continue;
+            else if (col.transform.name.Contains("Asteroid"))
+                continue;
+            else if (col.transform.name.Contains("BlueBull"))
+                continue;
+
+            if(col.transform.GetComponent<HealthPoints>() != null)
+            {
+                col.transform.GetComponent<HealthPoints>().takeDamage(rocket_damage);
+                Debug.Log(col.name + " HP IS NOW " + col.transform.GetComponent<HealthPoints>().hp);
+            }
+        }
+
         ParticleSystem exp = Instantiate(explosion_system_prefab, rocket.transform.position, explosion_system_prefab.transform.rotation); ;
         exp.Play();
         Destroy(rocket);

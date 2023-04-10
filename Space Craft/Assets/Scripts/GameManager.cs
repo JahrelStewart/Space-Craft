@@ -21,6 +21,13 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public static void resetGame()
+    {
+        num_of_spawned_allies = 0;
+        points = 0;
+        num_of_spawned_enemies = 0;
+    }
+
     public void SpawnEnemies()
     {
         int spawn_counter = num_of_spawned_enemies;
@@ -64,6 +71,10 @@ public class GameManager : MonoBehaviour
     public static void asteroidDestroyed()
     {
         points += asteroid_gain;
+    }
+    public static void allieDestroyed()
+    {
+        num_of_spawned_allies--;
     }
     public static void enemyDestroyed()
     {

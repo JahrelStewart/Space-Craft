@@ -18,6 +18,8 @@ public class AlliesAttack : MonoBehaviour
     private float laserbeam_speed = 45f;
     private float laser_distance_threshold = 80f;
     public ParticleSystem explosion_system_prefab;
+    private float explosion_radius = 5f;
+    private float rocket_damage = 25;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +39,7 @@ public class AlliesAttack : MonoBehaviour
             GameObject closest_target = getClosestTarget(this_sensor);
             if (closest_target != null)
             {
-                if (closest_target.transform.parent != null && closest_target.transform.parent.GetComponent<EnemyAI>() != null)
+                if (closest_target.transform.GetComponent<EnemyAI>() != null)
                 {
                     //Debug.Log(Vector3.Distance(transform.position, closest_target.transform.position));
                     // If the distance is out of laser's reach, shoot an auto missile
@@ -112,7 +114,7 @@ public class AlliesAttack : MonoBehaviour
             GameObject closest_target = getClosestTarget(lead_sensor);
             if (closest_target != null)
             {
-                if (closest_target.transform.parent != null && closest_target.transform.parent.GetComponent<EnemyAI>() != null)
+                if (closest_target.transform.GetComponent<EnemyAI>() != null)
                 {
                     //Debug.Log(Vector3.Distance(transform.position, closest_target.transform.position));
                     // If the distance is out of laser's reach, shoot an auto missile
@@ -179,11 +181,14 @@ public class AlliesAttack : MonoBehaviour
 
         foreach (GameObject g in sensor.Objects)
         {
-            float dist = Vector3.Distance(transform.position, g.transform.position);
-            if (dist < min_distance)
+            if(g != null)
             {
-                min_distance = dist;
-                closest_target = g;
+                float dist = Vector3.Distance(transform.position, g.transform.position);
+                if (dist < min_distance)
+                {
+                    min_distance = dist;
+                    closest_target = g;
+                }
             }
         }
 
@@ -192,7 +197,7 @@ public class AlliesAttack : MonoBehaviour
 
     private IEnumerator LaunchRocket(GameObject rocket)
     {
-        while (Vector3.Distance(target.transform.position, rocket.transform.position) > 1f)
+        while (target != null && rocket != null && Vector3.Distance(target.transform.position, rocket.transform.position) > 3f)
         {
             float real_speed = missile_speed;
             if (Vector3.Distance(target.transform.position, rocket.transform.position) < 8f)
@@ -201,6 +206,26 @@ public class AlliesAttack : MonoBehaviour
             rocket.transform.LookAt(target.transform);
             yield return null;
         }
+        if (rocket == null)
+            yield break;
+
+        Collider[] colliders = Physics.OverlapSphere(rocket.transform.position, explosion_radius);
+        foreach (Collider col in colliders)
+        {
+            if (col.transform.parent != null && col.transform.parent.name.Contains("Spaceship"))
+                continue;
+            else if (col.transform.name.Contains("Asteroid"))
+                continue;
+            else if (col.transform.name.Contains("BlueBull"))
+                continue;
+
+            if (col.transform.GetComponent<HealthPoints>() != null)
+            {
+                col.transform.GetComponent<HealthPoints>().takeDamage(rocket_damage);
+                Debug.Log(col.name + " HP IS NOW " + col.transform.GetComponent<HealthPoints>().hp);
+            }
+        }
+
         ParticleSystem exp = Instantiate(explosion_system_prefab, rocket.transform.position, explosion_system_prefab.transform.rotation); ;
         exp.Play();
         Destroy(rocket);

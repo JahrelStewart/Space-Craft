@@ -12,7 +12,7 @@ public class EnemiesAI : MonoBehaviour
 
     public Transform player;
     public List<EnemyAI> enemies = new();
-    private List<GameObject> allies = new();    
+    public List<GameObject> allies = new();    
     public EnemyAI enemyPrefab;
 
     const int threadGroupSize = 1024;
