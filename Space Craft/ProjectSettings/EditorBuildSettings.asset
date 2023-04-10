@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/StartMenu.unity
+    guid: aeee4fde782ce9a4e8cbf39c52853d9b
+  - enabled: 1
+    path: Assets/space_craft.unity
+    guid: c41dc2face0a3d843b586f05192223d5
+  - enabled: 1
+    path: Assets/ExitMenu.unity
+    guid: 1cb6fb9bc9569f544ad5f565a553d1b7
   m_configObjects: {}
