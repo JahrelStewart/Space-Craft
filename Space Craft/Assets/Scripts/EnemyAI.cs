@@ -259,12 +259,12 @@ public class EnemyAI : MonoBehaviour
     {
         if (collider.gameObject.name.Contains("Rocket"))
         {
-            Debug.Log("Rocket damage From Player");
+            //Debug.Log("Rocket damage From Player");
             GetComponent<HealthPoints>().takeDamage(rocket_damage);
         }
         else if (collider.gameObject.name.Contains("Laser"))
         {
-            Debug.Log("Laser damage From Player");
+            //Debug.Log("Laser damage From Player");
             GetComponent<HealthPoints>().takeDamage(laser_damage);
         }
     }

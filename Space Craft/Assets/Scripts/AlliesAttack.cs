@@ -13,9 +13,9 @@ public class AlliesAttack : MonoBehaviour
     private float rocket_launch_timer = 5.5f;
     private float laser_launch_time = 5.5f;
     private float laser_launch_timer = 5.5f;
-    private float laserbeam_lifetime = 1.6f;
+    private float laserbeam_lifetime = 0.5f;
     private float missile_speed = 5f;
-    private float laserbeam_speed = 45f;
+    private float laserbeam_speed = 225f;
     private float laser_distance_threshold = 80f;
     public ParticleSystem explosion_system_prefab;
     private float explosion_radius = 5f;
@@ -151,7 +151,7 @@ public class AlliesAttack : MonoBehaviour
         {
             counter++;
             InstantiateAndLaunchLaser();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -168,8 +168,8 @@ public class AlliesAttack : MonoBehaviour
     {
         GameObject laserbeam_left = Instantiate(laserbeam_prefab, transform.position + transform.forward * 3 - transform.right * 2.2f, laserbeam_prefab.transform.rotation);
         GameObject laserbeam_right = Instantiate(laserbeam_prefab, transform.position + transform.forward * 3 + transform.right * 2.2f, laserbeam_prefab.transform.rotation);
-        laserbeam_left.transform.forward = Quaternion.AngleAxis(-1, transform.right) * Quaternion.AngleAxis(4f, transform.up) * transform.forward;
-        laserbeam_right.transform.forward = Quaternion.AngleAxis(-1, transform.right) * Quaternion.AngleAxis(-3f, transform.up) * transform.forward;
+        laserbeam_left.transform.forward = Quaternion.AngleAxis(0.1f, transform.right) * Quaternion.AngleAxis(1.5f, transform.up) * transform.forward;
+        laserbeam_right.transform.forward = Quaternion.AngleAxis(0.1f, transform.right) * Quaternion.AngleAxis(-1f, transform.up) * transform.forward;
         StartCoroutine(LaunchLaserBeam(laserbeam_left));
         StartCoroutine(LaunchLaserBeam(laserbeam_right));
     }
@@ -222,7 +222,7 @@ public class AlliesAttack : MonoBehaviour
             if (col.transform.GetComponent<HealthPoints>() != null)
             {
                 col.transform.GetComponent<HealthPoints>().takeDamage(rocket_damage);
-                Debug.Log(col.name + " HP IS NOW " + col.transform.GetComponent<HealthPoints>().hp);
+                //Debug.Log(col.name + " HP IS NOW " + col.transform.GetComponent<HealthPoints>().hp);
             }
         }
 

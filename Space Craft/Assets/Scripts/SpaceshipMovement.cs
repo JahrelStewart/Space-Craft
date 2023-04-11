@@ -39,7 +39,7 @@ public class SpaceshipMovement : MonoBehaviour
     {
         if (collision.gameObject.name.Contains("Asteroid"))
         {
-            Debug.Log("Asteroid damage");
+            //Debug.Log("Asteroid damage");
             GetComponent<HealthPoints>().takeDamage(collision_damage);
         }
 

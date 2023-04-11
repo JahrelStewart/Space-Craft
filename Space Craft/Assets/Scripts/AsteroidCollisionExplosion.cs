@@ -41,7 +41,7 @@ public class AsteroidCollisionExplosion : MonoBehaviour
     {
         if (other.gameObject.name.Contains("Rocket"))
         {
-            Debug.Log(GetComponent<HealthPoints>().hp);
+            //Debug.Log(GetComponent<HealthPoints>().hp);
             GetComponent<HealthPoints>().takeDamage(rocket_damage);
             if (GetComponent<HealthPoints>().hp <= 0)
             {
@@ -54,7 +54,7 @@ public class AsteroidCollisionExplosion : MonoBehaviour
         {
             Destroy(other.gameObject);
             GetComponent<HealthPoints>().takeDamage(laserbeam_damage);
-            Debug.Log(GetComponent<HealthPoints>().hp);
+            //Debug.Log(GetComponent<HealthPoints>().hp);
             if (GetComponent<HealthPoints>().hp <= 0)
             {
                 GameManager.asteroidDestroyed();

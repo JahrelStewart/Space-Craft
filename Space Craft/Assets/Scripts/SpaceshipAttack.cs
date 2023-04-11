@@ -11,7 +11,7 @@ public class SpaceshipAttack : MonoBehaviour
     public AISensor sensor;
     public GameObject spaceship;
     private float missile_speed = 5f;
-    private float laserbeam_speed = 45f;
+    private float laserbeam_speed = 225f;
     public Canvas missile_crosshair;
     public Canvas laser_gun_crosshair;
     public Image missile_image;
@@ -24,7 +24,7 @@ public class SpaceshipAttack : MonoBehaviour
     private float rocket_launch_timer = 1.5f;
     private float lasergun_launch_time = 1.5f;
     private float lasergun_launch_timer = 1.5f;
-    private float laserbeam_lifetime = 1.6f;
+    private float laserbeam_lifetime = 0.5f;
     private GameObject target;
     private bool missile_launcher_equipped = false;
     private bool laser_gun_equipped = false;
@@ -140,8 +140,8 @@ public class SpaceshipAttack : MonoBehaviour
                     //target = getClosestTarget();
                     //laserbeam_left.transform.LookAt(transform.forward);
                     //laserbeam_right.transform.LookAt(transform.forward);
-                    laserbeam_left.transform.forward = Quaternion.AngleAxis(-1, transform.right) * Quaternion.AngleAxis(4f, transform.up) * transform.forward;
-                    laserbeam_right.transform.forward = Quaternion.AngleAxis(-1, transform.right) * Quaternion.AngleAxis(-3f, transform.up) * transform.forward;
+                    laserbeam_left.transform.forward = Quaternion.AngleAxis(0.1f, transform.right) * Quaternion.AngleAxis(1.5f, transform.up) * transform.forward;
+                    laserbeam_right.transform.forward = Quaternion.AngleAxis(0.1f, transform.right) * Quaternion.AngleAxis(-1f, transform.up) * transform.forward;
                     StartCoroutine(LaunchLaserBeam(laserbeam_left));
                     StartCoroutine(LaunchLaserBeam(laserbeam_right));
                 }

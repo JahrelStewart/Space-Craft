@@ -197,9 +197,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2e68056b5b2f74bb2bed168d6d0641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 100
-  angle: 15
-  height: 10
+  distance: 200
+  angle: 25
+  height: 25
   mesh_color: {r: 0.053106308, g: 1, b: 0, a: 0.1}
   scan_freq: 120
   occlusion_layers:
