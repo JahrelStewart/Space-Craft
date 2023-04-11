@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class EndGame : MonoBehaviour
 {    
-    [SerializeField] public Text scores;   
+    [SerializeField] public Text scores;
+
+    private void Start()
+    {
+        Cursor.visible = true;
+    }
 
     // Update is called once per frame
     void Update()

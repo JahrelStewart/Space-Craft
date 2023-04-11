@@ -35,7 +35,7 @@ public class HealthPoints : MonoBehaviour
             Destroy(gameObject.transform.Find("PrototypeZero").gameObject);
             Destroy(gameObject.transform.Find("Cylinder").gameObject);
             Destroy(gameObject.transform.Find("Sphere").gameObject);
-
+                        
             Invoke("LoadEndScene", 2f);
         }
         else if (transform.name.Contains("Tanker") && hp <= 0f)

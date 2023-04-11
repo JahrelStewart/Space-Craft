@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
         num_of_spawned_allies = 0;
         num_of_spawned_enemies = 0;
         points = 0;
