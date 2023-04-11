@@ -28,7 +28,7 @@ public class SpaceshipAttack : MonoBehaviour
     private GameObject target;
     private bool missile_launcher_equipped = false;
     private bool laser_gun_equipped = false;
-    private float explosion_radius = 5f;
+    private float explosion_radius = 15f;
     private float rocket_damage = 25;
 
     // Start is called before the first frame update
