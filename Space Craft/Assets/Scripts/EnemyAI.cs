@@ -112,9 +112,10 @@ public class EnemyAI : MonoBehaviour
 
         if (target != null)
         {
-            float aheadBy = (int)(distance / 10) + offset;
-            Vector3 futurePositionOfTarget = target.transform.position + (randomSpot * radius) + target.transform.forward * aheadBy;
+            float aheadBy = offset; //(int)(distance / 10) +
+            Vector3 futurePositionOfTarget = target.transform.position + (target.transform.forward * aheadBy) + (randomSpot * radius);
             Vector3 offsetToTarget = (futurePositionOfTarget - position);
+                        
             acceleration = SteerTowards(offsetToTarget) * settings.targetWeight;
         }
 
