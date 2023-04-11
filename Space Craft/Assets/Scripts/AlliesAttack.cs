@@ -69,7 +69,7 @@ public class AlliesAttack : MonoBehaviour
                             if (laser_launch_time > laser_launch_timer)
                             {
                                 laser_launch_time = 0;
-                                StartCoroutine(LaunchNLasers(7));
+                                StartCoroutine(LaunchNLasers(13));
                             }
                         }
                     }
@@ -100,7 +100,7 @@ public class AlliesAttack : MonoBehaviour
                             if (laser_launch_time > laser_launch_timer)
                             {
                                 laser_launch_time = 0;
-                                StartCoroutine(LaunchNLasers(7));
+                                StartCoroutine(LaunchNLasers(13));
                             }
                         }
                     }

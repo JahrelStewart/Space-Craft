@@ -95,7 +95,7 @@ public class EnemyAI : MonoBehaviour
     public void CalculateMovement()
     {
         time += Time.deltaTime;
-        target = getClosesTarget();
+        //target = getClosesTarget();
 
         float distance = Vector3.Distance(transform.position, target.transform.position);
         Quaternion dirToTarget = Quaternion.LookRotation(target.transform.position - transform.position, Vector3.up);
